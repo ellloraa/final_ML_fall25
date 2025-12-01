@@ -2,10 +2,13 @@
 import fs from "node:fs/promises";
 import SidechatAPIClient from "./src/classes/SidechatAPIClient.js";
 
-const TOKEN = "YOUR_TOKEN_HERE";
+const TOKEN = "eyJhbGciOiJIUzI1NiJ9.YWQ5MWFkMzEtNTk0OS00NTVkLWJhYmQtZDJmYjI1Y2IyMDBl.-AANbJDBG03rh1c_RGCvb70CL__Qu0_oSH5r5PKeYTg";
 const api = new SidechatAPIClient(TOKEN);
 
 const POSTS_FILE = "posts.jsonl";
+
+// cutoff date
+const CUTOFF_DATE = new Date("2025-08-20T00:00:00Z");
 
 function toPostRow(p) {
   return {
@@ -30,34 +33,44 @@ async function backfillAll(groupID, category = "hot") {
     console.log(`Fetching page ${page} (cursor=${cursor ?? "none"})`);
 
     const res = await api.getGroupPosts(groupID, category, cursor);
-    const posts = res.posts || res;      // depends on how it comes back
-    cursor = res.cursor || res?.next;    // adjust to actual field name
+    const posts = res.posts || res;
+    cursor = res.cursor || res?.next;
 
     if (!posts || posts.length === 0) {
       console.log("No more posts, stopping.");
       break;
     }
 
-    const rows = posts.map(toPostRow);
-    const jsonl = rows.map(r => JSON.stringify(r)).join("\n") + "\n";
-    await fs.appendFile(POSTS_FILE, jsonl);
+    // filter posts until cutoff
+    const rows = [];
+    for (const p of posts) {
+      const created = new Date(p.created_at);
+      if (created < CUTOFF_DATE) {
+        console.log(`Reached cutoff date (${CUTOFF_DATE.toISOString()}), stopping.`);
+        return; // exit the whole backfill
+      }
+      rows.push(toPostRow(p));
+    }
 
-    total += rows.length;
-    console.log(`Wrote ${rows.length} posts (total=${total})`);
+    if (rows.length > 0) {
+      const jsonl = rows.map(r => JSON.stringify(r)).join("\n") + "\n";
+      await fs.appendFile(POSTS_FILE, jsonl);
+      total += rows.length;
+      console.log(`Wrote ${rows.length} posts (total=${total})`);
+    }
 
     if (!cursor) {
       console.log("No cursor returned, reached the end.");
       break;
     }
 
-    // be nice to the API
     await new Promise(r => setTimeout(r, 500));
   }
 }
 
 async function main() {
-  const { group } = await api.getUpdates();   // your primary group (Davidson)
-  await backfillAll(group.id, "hot");         // or "recent"/"top"
+  const { group } = await api.getUpdates();
+  await backfillAll(group.id, "hot");
 }
 
 main().catch(console.error);

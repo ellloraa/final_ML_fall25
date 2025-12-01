@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import SidechatAPIClient from "./src/classes/SidechatAPIClient.js";
-const TOKEN = "YOUR_TOKEN_HERE";
+const TOKEN = "eyJhbGciOiJIUzI1NiJ9.YWQ5MWFkMzEtNTk0OS00NTVkLWJhYmQtZDJmYjI1Y2IyMDBl.-AANbJDBG03rh1c_RGCvb70CL__Qu0_oSH5r5PKeYTgE";
 const api = new SidechatAPIClient(TOKEN);
 
 
