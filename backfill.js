@@ -8,7 +8,7 @@ const api = new SidechatAPIClient(TOKEN);
 const POSTS_FILE = "posts.jsonl";
 
 // cutoff date
-const CUTOFF_DATE = new Date("2025-08-20T00:00:00Z");
+const CUTOFF_DATE = new Date("2025-12-01T01:52:38.392Z");
 
 function toPostRow(p) {
   return {
