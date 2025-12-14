@@ -25,7 +25,7 @@ async function main() {
 
   // Append to JSONL file
   const jsonl = rows.map(r => JSON.stringify(r)).join("\n") + "\n";
-  await fs.appendFile("sidechat_posts.jsonl", jsonl);
+  await fs.appendFile("yikyak.jsonl", jsonl);
 
   console.log(`Wrote ${rows.length} posts`);
 }
