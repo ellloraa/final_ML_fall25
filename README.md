@@ -96,9 +96,9 @@ project_root/
 - This CSV can only be used for controversial models in  `models/controversiality_models/`
 
 
-## Step 2 – Running Reddit Controvery Models
+## Step 2 – Running Reddit Engagement Models
 
-**Files:** `models/controversiality_models/`  
+**Files:** `models/high_engagement_models/reddit_*`  
 
 - Load `csv_files/engagement_reddit.csv` into your model scripts
 - Train Logistic Regression, SVM, or Random Forest, and see evaluations by running all cells
@@ -107,19 +107,29 @@ project_root/
 Make sure your CSV paths are correct when loading the data.
 
 
-## Step 2 - Cleaning YikYak Data (Generate CSVs)
+## Step 3 – Running Reddit Controversy Models
+
+**Files:** `models/controversiality_models/`  
+
+- Load `csv_files/reddit_df_more_features.csv` into your model scripts
+- Train Logistic Regression, SVM, or Random Forest, and see evaluations by running all cells
+
+**Important:**  
+Make sure your CSV paths are correct when loading the data.
+
+
+## Step 4 - Cleaning YikYak Data (Generate CSVs)
 
 **File:** `data_cleaning/yikyak_engagement_cleaning.ipynb`  
 
-- Make sure `json_files/merged_file.json` has the correct path and can be loaded (already included in repo)Load `more_yikyak_posts.jsonl` (already included in repo)
+- Make sure `json_files/more_yikyak_posts.jsonl` has the correct path and can be loaded (already 
 - Run all cells 
 
 ### Output  
-- `csv_files/yikyak_metadata.csv` → ready for engagement models ONLY located 
+- `csv_files/yikyak_metadata.csv` → ready for yikyak engagement models ONLY located 
 
 **Usage:**  
 - This CSV can only be used for engagement models in `models/high_engagement_models/yikyak_*`
-
 
 
 ## Step 3 – Running YikYak Engagement Models
@@ -131,7 +141,6 @@ Make sure your CSV paths are correct when loading the data.
 
 **Important:**  
 Make sure your CSV paths are correct when loading the data.
-
 
 
 ## Step 5 – General Notes on CSV Usage
