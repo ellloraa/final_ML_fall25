@@ -81,7 +81,7 @@ project_root/
 
 ### 1.2 Controversiality
 
-**File:** `data_cleaning/reddit_controversy_data_cleaning.ipynb`
+**File:** `data_cleaning/reddit_controversy_cleaning.ipynb`
 
 - Make sure `json_files/merged_file.json` has the correct path and can be loaded (already included in repo)
 - Run all cells
