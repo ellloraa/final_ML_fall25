@@ -96,19 +96,20 @@ Once you have `more_yikyak_posts.jsonl` (generated via `backfill.js`), you can r
 - Assigns **high_engagement labels** (top 10% vote totals)
 
 ### Output  
-- `yikyak_metadata.csv` → ready for engagement models ONLY located 
+- `csv_files/yikyak_metadata.csv` → ready for engagement models ONLY located 
 
+**Usage:**  
+- This CSV can only be used for engagement models in `models/high_engagement_models/yikyak_*`
 
 ## Step 3 – Running YikYak Engagement Models
 
 **Files:** `models/high_engagement_models/yikyak_*`  
 
-- Load `csv_files/yikyak_engagement.csv` into your model script
+- Load `csv_files/yikyak_metadata.csv` into your model script
 - Train Logistic Regression, SVM, or Random Forest, and see evaluations by running all cells
 
 **Important:**  
 Make sure your CSV paths are correct when loading the data.
-
 
 
 ## Step 4 – Cleaning Reddit Data
@@ -118,14 +119,17 @@ Make sure your CSV paths are correct when loading the data.
 **File:** `reddit_engagement_cleaning.ipynb`
 
 - Loads `merged_file.json` (already included in repo)
-- Creates `high_engagement` label (top 25% comment-to-upvote ratio)
+- Creates `high_engagement` label (top 10% comment-to-upvote ratio)
 - Generates similar features as YikYak (sentiment, pronouns, temporal, etc.)
 
 **Output:**  
-- `csv_files/engagement_reddit.csv` → for Reddit engagement models
+- `csv_files/engagement_reddit.csv` → for Reddit engagement models ONLY
 
 **Usage:**  
-- Load this CSV into your engagement models in `models/high_engagement_models/reddit_*`
+- This CSV can only be used for engagement models in `models/high_engagement_models/reddit_*`
+
+**Important:**  
+Make sure your CSV paths are correct when loading the data.
 
 ### 4.2 Controversiality
 
@@ -138,8 +142,16 @@ Make sure your CSV paths are correct when loading the data.
 - `csv_files/reddit_df_more_features.csv` → for controversiality models ONLY
 
 **Usage:**  
-- This csv can be only be used for controversial models located in the `models/controversiality_models/` folder
+- This CSV can only be used for controversial models in  `models/controversiality_models/`
 
+**Important:**  
+Make sure your CSV paths are correct when loading the data.
+
+
+## Step 5 – General Notes on CSV Usage
+1. For **YikYak engagement**, run `yikyak_engagement_cleaning.ipynb` → load `yikyak_metadata.csv`.
+2. For **Reddit engagement**, run `reddit_engagement_cleaning.ipynb` → load `engagement_reddit.csv`.
+3. For **Reddit controversiality**, run `reddit_controversy_cleaning.py` → load `reddit_df_more_features.csv`.
 
 
 
