@@ -87,7 +87,7 @@ project_root/
 - Run all cells
 
 **Output:**  
-- `csv_files/reddit_df_more_features.csv` → for controversiality models ONLY
+- `csv_files/reddit_controversal_df_features.csv` → for controversiality models ONLY
 
 **Usage:**  
 - This CSV can only be used for controversial models in  `models/controversiality_models/`
@@ -108,7 +108,7 @@ Make sure your CSV paths are correct when loading the data.
 
 **Files:** `models/controversiality_models/`  
 
-- Load `csv_files/reddit_df_more_features.csv` into your model scripts
+- Load `csv_files/reddit_controversal_df_features.csv` into your model scripts
 - Train Logistic Regression, SVM, or Random Forest, and see evaluations by running all cells
 
 **Important:**  
