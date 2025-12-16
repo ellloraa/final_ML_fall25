@@ -78,7 +78,7 @@ This script fetches posts from Sidechat API and writes them into a JSONL file, w
 ```bash
 npm install
 echo "SIDECHAT_TOKEN=your_token_here" > .env
-
+```
 
 
 ## Step 2 – Cleaning YikYak Data
