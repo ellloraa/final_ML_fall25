@@ -25,7 +25,7 @@ project_root/
 │   ├── yikyak_engagement_cleaning.ipynb
 │   └── reddit_scrape.ipynb
 │
-├── json_files/             #vRAW data 
+├── json_files/             #RAW data 
 │   ├── merged_file.json
 │   ├── more_yikyak_posts.jsonl
 │ 
@@ -43,8 +43,8 @@ project_root/
 │     ├── yikyak_svm.ipynb
 │     ├── yiky_random_forest.ipynb
 │
-├
-└── README.md
+├-- README.md
+└── backfill.js          # YikYak Scraper
 ```
 ### Folder Rules
 - **`json_files/`** → raw input data only  
@@ -57,45 +57,92 @@ project_root/
 
 > **Normally:** We shouldn't include data in the GitHub repo.
 >
-> **Exception:** we includeD `merged_file.json` because the Reddit scraping process can only be run **once per dataset**. Each contributor scraped individually and merged the results.  
+> **Exception:** We included `merged_file.json` because the Reddit scraping process can only be run **once per dataset**. Each contributor scraped individually and merged the results.  
 >
 > Including this combined JSON ensures that anyone using the repository can reproduce the datasets and run the models **without needing to re-scrape** Reddit.  
 
 ## Step 1 – Scraping Yikyak Data 
 
-**Files:** `reddit_scrape.ipynb`
 
-Run this step **only if you need new Reddit data**.
+### How to generate (`more_yikyak_posts.jsonl`)
 
-### What the scraper does
-- Fetches posts from multiple subreddits
-- Filters out images and videos
-- Converts Reddit posts into a **YikYak-style schema**
-- Labels posts as controversial or non-controversial
+**File:** `backfill.js`  
 
-### Output
-- `reddit_yikyak_dataset.json`
+This script fetches posts from Sidechat API and writes them into a JSONL file, which is later used for cleaning and feature engineering.
 
-If this file already exists, you can skip this step.
+**Requirements:**
+- Node.js installed
+- `.env` file with `SIDECHAT_TOKEN` from Sidechat
+
+**Environment Setup:**
+```bash
+npm install
+echo "SIDECHAT_TOKEN=your_token_here" > .env
 
 
-## 2. How to Use This Repository 
 
-If you just want to run everything quickly:
+## Step 2 – Cleaning YikYak Data
 
-1. Run **reddit_scrape.ipynb** to collect new Reddit data  
-2. Merge raw JSON files with *combine_files.ipynb**
-3. Run the **data cleaning scripts** to generate CSVs  
-4. Load the CSVs into the **machine learning models**  
+**File:** `yikyak_engagement_cleaning.ipynb`  
 
-## How to Run Everything (Recommended Order)
+Once you have `more_yikyak_posts.jsonl` (generated via `backfill.js`), you can run all cells inside this script to clean the data and generate features.
 
-1. Scrape data
-2. Run `combine_features.py`
-3. Run Reddit cleaning scripts
-4. Run YikYak cleaning script
-5. Verify CSVs in `csv_files/`
-6. Train and evaluate models in `models/`
+### What this script does
+- Preprocesses text (emoji normalization, lowercasing, URL/mention removal)
+- Computes sentiment features (TextBlob + VADER)
+- Adds disagreement, conflict, punctuation, capitalization, and pronoun features
+- Extracts temporal features (hour, day, weekend)
+- Generates **burstiness features** (activity over past 2 hours)
+- Assigns **high_engagement labels** (top 10% vote totals)
+
+### Output  
+- `yikyak_metadata.csv` → ready for engagement models ONLY located 
+
+
+## Step 3 – Running YikYak Engagement Models
+
+**Files:** `models/high_engagement_models/yikyak_*`  
+
+- Load `csv_files/yikyak_engagement.csv` into your model script
+- Train Logistic Regression, SVM, or Random Forest, and see evaluations by running all cells
+
+**Important:**  
+Make sure your CSV paths are correct when loading the data.
+
+
+
+## Step 4 – Cleaning Reddit Data
+
+### 4.1 Engagement
+
+**File:** `reddit_engagement_cleaning.ipynb`
+
+- Loads `merged_file.json` (already included in repo)
+- Creates `high_engagement` label (top 25% comment-to-upvote ratio)
+- Generates similar features as YikYak (sentiment, pronouns, temporal, etc.)
+
+**Output:**  
+- `csv_files/engagement_reddit.csv` → for Reddit engagement models
+
+**Usage:**  
+- Load this CSV into your engagement models in `models/high_engagement_models/reddit_*`
+
+### 4.2 Controversiality
+
+**File:** `reddit_controversy_data_cleaning.ipynb`
+
+- Generates features for **controversial vs. non-controversial posts**
+- Includes sentiment, disagreement, pronoun, and temporal features
+
+**Output:**  
+- `csv_files/reddit_df_more_features.csv` → for controversiality models ONLY
+
+**Usage:**  
+- This csv can be only be used for controversial models located in the `models/controversiality_models/` folder
+
+
+
+
 # sidechat.js
 
 [![NPM Version](https://img.shields.io/npm/v/sidechat.js)](https://www.npmjs.com/package/sidechat.js?activeTab=versions)
