@@ -64,9 +64,6 @@ project_root/
 > **YikYak Exception:** The repository also provides `more_yikyak_posts.jsonl`. While the code to generate it exists in `backfill.js`, you do **not** need to create a Sidechat account, generate a token, or run the scraper. 
 > Including this JSONL ensures anyone can run the YikYak cleaning scripts and models **without needing to fetch new posts**.
 
-
-
-
 ## Step 1 – Cleaning Reddit Data (Generate CSVs)
 
 ### 1.1 Engagement
@@ -132,7 +129,7 @@ Make sure your CSV paths are correct when loading the data.
 - This CSV can only be used for engagement models in `models/high_engagement_models/yikyak_*`
 
 
-## Step 3 – Running YikYak Engagement Models
+## Step 5 – Running YikYak Engagement Models
 
 **Files:** `models/high_engagement_models/yikyak_*`  
 
@@ -143,7 +140,7 @@ Make sure your CSV paths are correct when loading the data.
 Make sure your CSV paths are correct when loading the data.
 
 
-## Step 5 – General Notes on CSV Usage
+## General Notes on CSV Usage
 1. For **YikYak engagement**, run `yikyak_engagement_cleaning.ipynb` → load `yikyak_metadata.csv`.
 2. For **Reddit engagement**, run `reddit_engagement_cleaning.ipynb` → load `engagement_reddit.csv`.
 3. For **Reddit controversiality**, run `reddit_controversy_cleaning.py` → load `reddit_df_more_features.csv`.
