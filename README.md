@@ -46,6 +46,38 @@ project_root/
 ├
 └── README.md
 ```
+### Folder Rules
+- **`json_files/`** → raw input data only  
+- **`data_cleaning/`** → transforms data, creates features, defines labels  
+- **`csv_files/`** → model-ready data  
+- **`models/`** → training, prediction, evaluation
+
+
+### Important Note About Reddit JSON
+
+> **Normally:** We shouldn't include data in the GitHub repo.
+>
+> **Exception:** we includeD `merged_file.json` because the Reddit scraping process can only be run **once per dataset**. Each contributor scraped individually and merged the results.  
+>
+> Including this combined JSON ensures that anyone using the repository can reproduce the datasets and run the models **without needing to re-scrape** Reddit.  
+
+## Step 1 – Scraping Yikyak Data 
+
+**Files:** `reddit_scrape.ipynb`
+
+Run this step **only if you need new Reddit data**.
+
+### What the scraper does
+- Fetches posts from multiple subreddits
+- Filters out images and videos
+- Converts Reddit posts into a **YikYak-style schema**
+- Labels posts as controversial or non-controversial
+
+### Output
+- `reddit_yikyak_dataset.json`
+
+If this file already exists, you can skip this step.
+
 
 ## 2. How to Use This Repository 
 
