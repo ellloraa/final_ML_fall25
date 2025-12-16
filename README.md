@@ -1,3 +1,15 @@
+# Reddit & YikYak Controversy and Engagement Modeling
+
+This repository contains the **full data pipeline** for collecting, cleaning, feature-engineering, and modeling Reddit and YikYak-style social media posts. The goal is to predict **engagement** and **controversiality** using text, metadata, sentiment, and temporal features.
+
+This README explains:
+- The **folder structure** and what each directory is for
+- The **data flow** (raw JSON → cleaned CSV → ML models)
+- What each **data processing file does**
+- How to **apply the generated CSVs to the models**
+
+
+
 # sidechat.js
 
 [![NPM Version](https://img.shields.io/npm/v/sidechat.js)](https://www.npmjs.com/package/sidechat.js?activeTab=versions)
