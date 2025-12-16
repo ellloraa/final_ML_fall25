@@ -123,7 +123,7 @@ Make sure your CSV paths are correct when loading the data.
 - Run all cells 
 
 ### Output  
-- `csv_files/yikyak_metadata.csv` → ready for yikyak engagement models ONLY located 
+- `csv_files/yikyak_metadata.csv` → ready for yikyak engagement models ONLY 
 
 **Usage:**  
 - This CSV can only be used for engagement models in `models/high_engagement_models/yikyak_*`
@@ -140,10 +140,15 @@ Make sure your CSV paths are correct when loading the data.
 Make sure your CSV paths are correct when loading the data.
 
 
+## General Notes on JSON Usage
+1. For **Reddit controversiality**, run all cells in`data_cleaning/reddit_controversy_cleaning.ipynb` → load `json_files/merged_file.json`.
+2. For **Reddit engagement**, run all cells in `data_cleaning/reddit_engagement_cleaning.ipynb` → load `json_files/merged_file.json`.
+3. For **YikYak engagement**, run all cells in `data_cleaning/yikyak_engagement_cleaning.ipynb` → load `json_files/more_yikyak_posts.jsonl`.
+
 ## General Notes on CSV Usage
-1. For **YikYak engagement**, run `yikyak_engagement_cleaning.ipynb` → load `yikyak_metadata.csv`.
-2. For **Reddit engagement**, run `reddit_engagement_cleaning.ipynb` → load `engagement_reddit.csv`.
-3. For **Reddit controversiality**, run `reddit_controversy_cleaning.py` → load `reddit_df_more_features.csv`.
+1. For **Reddit controversiality models**, run all cells for any model in `models/controversiality_models` → load `csv_files/yikyak_metadata.csv`.
+2. For **Reddit engagement models**, run all cells for any model in `models/high_engagment_models/reddit*` → load `csv_files/reddit_df_more_features.csv`.
+3.  For **YikYak engagement models**, run all cells for any model in `models/high_engagment_models/yikyak*` → load `csv_files/yikyak_metadata.csv`.
 
 
 
