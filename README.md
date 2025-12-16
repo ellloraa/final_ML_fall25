@@ -146,8 +146,8 @@ Make sure your CSV paths are correct when loading the data.
 3. For **YikYak engagement**, run all cells in `data_cleaning/yikyak_engagement_cleaning.ipynb` → load `json_files/more_yikyak_posts.jsonl`.
 
 ## General Notes on CSV Usage
-1. For **Reddit controversiality models**, run all cells for any model in `models/controversiality_models` → load `csv_files/yikyak_metadata.csv`.
-2. For **Reddit engagement models**, run all cells for any model in `models/high_engagment_models/reddit*` → load `csv_files/reddit_controversal_df_features.csv`.
+1. For **Reddit controversiality models**, run all cells for any model in `models/controversiality_models` → load `csv_files/reddit_controversal_df_features.csv`.
+2. For **Reddit engagement models**, run all cells for any model in `models/high_engagment_models/reddit*` → load `csv_files/engagement_reddit.csv`.
 3.  For **YikYak engagement models**, run all cells for any model in `models/high_engagment_models/yikyak*` → load `csv_files/yikyak_metadata.csv`.
 
 
